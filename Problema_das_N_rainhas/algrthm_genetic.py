@@ -17,7 +17,8 @@ N = 8
 log_N = int(np.log2(N))
 
 def conflicted(state,row,col):
-    return any(conflicted(row,col,state[c],c) for c in range(col))
+    return any(conflicted(row,col,state[c],c)
+               for c in range(col))
 
 def conflict(row1,col1,row2,col2):
     return(row1 == row2 or 
