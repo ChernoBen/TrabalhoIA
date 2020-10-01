@@ -6,10 +6,10 @@ This is a temporary script file.
 """
 
 import numpy as np
-from livelossplot import Plotlosses
-from livelossplot.outputs import MatplotlivPlot,ExtremaPrinter
+from livelossplot import PlotLosses
+from livelossplot.outputs import MatplotlibPlot,ExtremaPrinter
 import random
-from deap import creator, base,tools,algorithms
+from deap import creator,base,tools,algorithms
 import matplotlib.pyplot as plt
 
 '''numero de rainhas'''
@@ -17,11 +17,10 @@ N = 8
 log_N = int(np.log2(N))
 
 def conflicted(state,row,col):
-    return any(conflicted(row,col,state[c],c)
-               for c in range(col))
+    return any(conflicted(row,col,state[c],c) for c in range(col))
 
 def conflict(row1,col1,row2,col2):
-    return(row == row2 or 
+    return(row1 == row2 or 
            col1 == col2 or
            row1 - col1 == row2 - col2 or
            row1 + col1 == row2 + col2)
@@ -52,7 +51,7 @@ def nqueen_fitness(node):
 goal_test([2,4,6,8,3,1,7,4])
 
 
-h([2,2,6,,7,,3,1,7,4])
+h([2,2,6,7,3,1,7,4])
 
 
 creator.create("Fitness",base.Fitness,weights=(-1.0, ))
@@ -85,7 +84,7 @@ nqueen_fitness(population[0])[0]
 
 groups={'h':['top','average','worst']}
 
-plotlosses = PlotLosses(outputs=[MatplotlivPlot(cell_size=(4,2)),ExtremaPrinter()],
+plotlosses = PlotLosses(outputs=[MatplotlibPlot(cell_size=(4,2)),ExtremaPrinter()],
                         groups=groups)
 
 population = toolbox.population(n=100)
@@ -95,37 +94,37 @@ NGEN = 50
 fits = toolbox.map(toolbox.evaluate,population)
 
 for fit, ind in zip(fits,population):
-    in.fitness.values = fit
+    ind.fitness.values = fit
     
 for gen in range(NGEN):
-    population = toolbox.select(population,klen(population))
+    population = toolbox.select(population,len(population))
     offspring = algorithms.varAnd(population,toolbox,cspb=0.5,mutpb=0.1)
 
 
-avg_h = 0
-
-fits = toolbox.map(toolox.evaluate,offspring)
-
-for fit, ind in zip(fits,offspring):
-    avg_h +=fit[0]
-    ind.fitness.values = fit
-
-population[:] = offspring
-
-top = tools.selBest(population,k=1)
-worst = tools.selWorst(population,k=1)
-
-avg_h = avg_h/len(population)
-top_h = nqueen_fitness(top[0)])[0]
-worst_h = nqueen_fitness(worst[0])[0]
-plotlosses.update({'top':top_h,
-                   'average':avg_h,
-                   'worst':worst_h})
-
-plotlosses.send()
-
-
-if (nqueen_fitness(top[0])[0]==0): break
+    avg_h = 0
+    
+    fits = toolbox.map(toolbox.evaluate,offspring)
+    
+    for fit, ind in zip(fits,offspring):
+        avg_h +=fit[0]
+        ind.fitness.values = fit
+    
+    population[:] = offspring
+    
+    top = tools.selBest(population,k=1)
+    worst = tools.selWorst(population,k=1)
+    
+    avg_h = avg_h/len(population)
+    top_h = nqueen_fitness(top[0])[0]
+    worst_h = nqueen_fitness(worst[0])[0]
+    plotlosses.update({'top':top_h,
+                       'average':avg_h,
+                       'worst':worst_h})
+    
+    plotlosses.send()
+    
+    
+    if (nqueen_fitness(top[0])[0]==0): break
 
 
 
