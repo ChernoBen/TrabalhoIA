@@ -9,7 +9,7 @@ import time
 import random
 import math
 
-'''Representação do problema'''
+'''---Representação do problema---'''
 
 pessoas = [('Amanda','CWB'),
            ('Pedro','GIG'),
@@ -57,7 +57,8 @@ def imprimir_agenda(agenda):
 agenda = [1,4,3,2,7,3,6,3,2,4,5,3]
 imprimir_agenda(agenda)
 
-'''definindo o custo de tempo em minutos'''
+''' ---Inicio função de custo ---
+    definindo o custo de tempo em minutos'''
 
 
 def get_minutos(hora):
@@ -110,13 +111,25 @@ def funcao_custo(solucao):
         
     return preco_total + total_espera
 
-funcao_custo(agenda)
-        
-            
-        
-            
-            
-            
+
+''' ---inicio tecnicas de otimização--- '''
+
+# 1 implementação pesquisa aleatoria ou randomica
+def perquisa_randomica(dominio,funcao_custo):
+    melhor_custo = 9999999999
+    for i in range(0,1000):
+        solucao = [random.randint(dominio[i][0],dominio[i][1])for i in range(len(dominio))]
+        custo = funcao_custo(solucao)
+        if custo < melhor_custo:
+            melhor_custo = solucao
+            return melhor_custo
+    return solucao
+    
+
+dominio = [(0,9)] * (len(pessoas) * 2)   
+solucao_randomica = perquisa_randomica(dominio,funcao_custo)
+custo_randomica = funcao_custo(solucao_randomica)
+imprimir_agenda(solucao_randomica)
             
             
             
