@@ -68,7 +68,6 @@ def get_minutos(hora):
     return minutos
 
 '''definindo função de custo'''
-
 def funcao_custo(solucao):
     preco_total = 0
     ultima_chegada = 0
@@ -110,7 +109,8 @@ def funcao_custo(solucao):
         preco_total += 50
         
     return preco_total + total_espera
-        
+
+funcao_custo(agenda)
         
             
         
