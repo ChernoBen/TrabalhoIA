@@ -27,6 +27,11 @@ voos = {}
 for linha in open('recursos/voos.txt'):
     '''criar variaveis locais p/cada coluna'''
     _origem, _destino, _saida, _chegada, _preco = linha.split(',')
+    
     '''adiciona chaves ao dicionario '''
     voos.setdefault((_origem,_destino), [])
+    
+    '''gerar dicionario com todos os hoarios de voos de ou para guarulhos GRU'''
     voos[(_origem,_destino)].append((_saida,_chegada,int(_preco)))
+
+
