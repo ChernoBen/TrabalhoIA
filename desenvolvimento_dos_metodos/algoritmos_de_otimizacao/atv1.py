@@ -4,7 +4,6 @@ Created on Fri Oct  2 13:25:14 2020
 
 @author: Benjamim
 """
-
 import time
 import random
 import math
@@ -21,7 +20,6 @@ pessoas = [('Amanda','CWB'),
 destino = 'GRU'
 
 '''Intanciar base de dados de voos em um dicionario'''
-
 voos = {}
 
 for linha in open('recursos/voos.txt'):
@@ -34,9 +32,7 @@ for linha in open('recursos/voos.txt'):
     '''gerar dicionario com todos os hoarios de voos de ou para guarulhos GRU'''
     voos[(_origem,_destino)].append((_saida,_chegada,int(_preco)))
 
-
 '''listar voos escolhidos'''
-
 def imprimir_agenda(agenda):
     contador = 0
     #variavel utilizada para percorrer registros da lista
@@ -56,13 +52,10 @@ def imprimir_agenda(agenda):
               ida[1], ida[2], volta[0], volta[1], volta[2]))
     print(contador)
         
-
 agenda = [1,4, 3,2, 7,3, 6,3, 2,4, 5,3]
 #imprimir_agenda(agenda)
-
 ''' ---Inicio função de custo ---
     definindo o custo de tempo em minutos'''
-
 
 def get_minutos(hora):
     #convertendo valores string
@@ -92,11 +85,9 @@ def funcao_custo(solucao):
         
         if ultima_chegada < get_minutos(ida[1]):
             ultima_chegada = get_minutos(ida[1])
-            
-            
+                        
         if primeira_partida > get_minutos(volta[0]):
-            primeira_partida = get_minutos(volta[0])
-        
+            primeira_partida = get_minutos(volta[0])        
         
     total_espera = 0 
     id_voo = -1
@@ -115,9 +106,7 @@ def funcao_custo(solucao):
         
     return preco_total + total_espera
 
-
 ''' ---inicio tecnicas de otimização--- '''
-
 # 1 implementação pesquisa aleatoria ou randomica
 def perquisa_randomica(dominio,funcao_custo):
     melhor_custo = 9999999999
@@ -129,17 +118,14 @@ def perquisa_randomica(dominio,funcao_custo):
             melhor_solucao = solucao
     return melhor_solucao
     
-
 dominio = [(0,9)] * (len(pessoas) * 2) 
 '''  
 solucao_randomica = perquisa_randomica(dominio,funcao_custo)
 custo_randomica = funcao_custo(solucao_randomica)
 imprimir_agenda(solucao_randomica)'''
             
-
 ''' ---hill climb---'''
-# Comeca comeca com uma solucao aleatoria e procura os melhores vizinhos
-            
+# Comeca comeca com uma solucao aleatoria e procura os melhores vizinhos            
 def subida_encosta(dominio,funcao_custo):
     #definindo solucao randomica
     solucao = [random.randint(dominio[i][0],dominio[i][1]) for i in range(len(dominio))]
@@ -166,7 +152,6 @@ def subida_encosta(dominio,funcao_custo):
             break
         
     return solucao
-
 
 solucao_subida_encosta = subida_encosta(dominio,funcao_custo)
 custo_suboda_encosta = funcao_custo(solucao_subida_encosta)
