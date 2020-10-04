@@ -22,8 +22,10 @@ prompt-toolkit==3.0.7
 Pygments==2.7.1
 pyparsing==2.4.7
 python-dateutil==2.8.1
+python-igraph==0.8.2
 PyYAML==5.3.1
 six==1.15.0
+texttable==1.6.3
 tornado==6.0.4
 traitlets==5.0.4
 typing-extensions==3.7.4.3
