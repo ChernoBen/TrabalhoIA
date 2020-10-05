@@ -22,19 +22,18 @@ for i in range(n):
        df[i][j]= (i,j)
        
 
-
        
 '''vetor de estado - sorteio de posições''' 
-vetor_estado = []
-for x in range(8):
-    vetor_estado.append(random.choice(lista))
-    
+var_estado = []
+var_estado = random.choice(df[:][0])
+
+lista_estados = [var_estado]
+ps = df[:][1]
     
 '''funcao objetivo'''
-def f_objetivo(vetor_estado):
-    '''
-        verificar se  as coordenadar compartilhando diagonais,
-        verticais ou retas
-        decobrir o angulo entre o ponto e o proximo
-    '''
+def f_objetivo(var_estado,df,lista_estados,n):
+    proximo_estado = df[:][1]
+    
+    
+    
     pass
