@@ -23,10 +23,10 @@ pycairo @ file:///C:/ci/pycairo_1593108952636/work
 Pygments==2.7.1
 pyparsing==2.4.7
 python-dateutil==2.8.1
-python-igraph==0.8.2
+python-igraph @ file:///D:/bld/python-igraph_1588168362456/work
 PyYAML==5.3.1
 six==1.15.0
-texttable==1.6.3
+texttable @ file:///home/conda/feedstock_root/build_artifacts/texttable_1599404337529/work
 tornado==6.0.4
 traitlets==5.0.4
 typing-extensions==3.7.4.3
