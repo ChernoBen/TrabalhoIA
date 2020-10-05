@@ -14,3 +14,6 @@ grafo1 = Graph(edges=[(0,1),(1,2),(2,3),(3,0)], directed = True)
 '''Definição do rotulo de cada vertice'''
 grafo1.vs['label']=range(grafo1.vcount())
 print(grafo1)
+
+'''grafico
+plot(grafo1,bbox = (0,0,300,300))'''
