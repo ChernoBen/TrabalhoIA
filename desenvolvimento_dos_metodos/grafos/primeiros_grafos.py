@@ -29,11 +29,5 @@ var_estado = random.choice(df[:][0])
 
 lista_estados = [var_estado]
 ps = df[:][1]
-    
-'''funcao objetivo'''
-def f_objetivo(var_estado,df,lista_estados,n):
-    proximo_estado = df[:][1]
-    
-    
-    
-    pass
+teste1,teste2 = ps[0],ps[n-1]
+'''implementar teste do 0,45 e 90 graus'''
