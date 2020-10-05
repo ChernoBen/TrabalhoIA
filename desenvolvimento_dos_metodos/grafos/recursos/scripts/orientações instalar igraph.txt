@@ -1,0 +1,19 @@
+1) Desinstalar o iGraph/pyCairo via Anaconda Prompt:
+pip uninstall python-igraph
+pip uninstall pycairo
+#------------------------------------------------------------------------#
+2) Baixar o .whl do pycairo que corresponde a sua versão:
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
+Localize Pycairo
+Por exemplo: meu Python é 3.7 - 64bits, então baixei o arquivo: pycairo‑1.19.1‑cp37‑cp37m‑win_amd64.whl
+Retorne para o Anaconda Prompt e instale o .whl do local que foi baixado:
+pip install C:/local para onde o arquivo foi baixado/nome do arquivo.whl
+#------------------------------------------------------------------------#
+3) Baixar o .whl do igraph que corresponde a sua versão:
+Acesse o site: https://www.lfd.uci.edu/~gohlke/pythonlibs/ 
+Localize python-igraph
+Por exemplo: meu Python é 3.7 - 64bits, então baixei o arquivo: python_igraph‑0.7.1.post6‑cp37‑cp37m‑win_amd64.whl
+Retorne para o Anaconda Prompt e instale o .whl do local que foi baixado:
+pip install C:/local para onde o arquivo foi baixado/nome do arquivo.whl
+#------------------------------------------------------------------------#
+Após isso é só reiniciar o kernel do python e seguir o script da aula normalmente.
