@@ -4,16 +4,27 @@ Created on Sun Oct  4 19:41:08 2020
 
 @author: Benjamim
 """
+import random
+n = 8
+'''gerando representação do problema'''
+matrix = []
 
-from igraph import Graph
-from igraph import plot
-
-'''Definição do grafo com as arestas'''
-grafo1 = Graph(edges=[(0,1),(1,2),(2,3),(3,0)], directed = True)
-
-'''Definição do rotulo de cada vertice'''
-grafo1.vs['label']=range(grafo1.vcount())
-print(grafo1)
-
-'''grafico'''
-plot1 = plot(grafo1,bbox = (0,0,300,300))
+for i in range(n):
+    for j in range(n):
+       print(i,j)
+       matrix.append((i,j))
+       
+'''vetor de estado - sorteio de posições''' 
+vetor_estado = []
+for x in range(8):
+    vetor_estado.append(random.choice(matrix))
+    
+    
+'''funcao objetivo'''
+def f_objetivo(vetor_estado):
+    '''
+        verificar se  as coordenadar compartilhando diagonais,
+        verticais ou retas
+        decobrir o angulo entre o ponto e o proximo
+    '''
+    pass
