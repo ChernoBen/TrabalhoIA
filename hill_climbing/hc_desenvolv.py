@@ -62,6 +62,9 @@ def nqueen_fitness(node):
 
     return h(node_int),
 
+goal_test([2,4,6,8,3,1,7,4])
+h([2,2,6,7,3,1,7,4])
+
 '''codigo do professor até aqui'''
 
 arr = [i for i in range(N)]
@@ -69,10 +72,7 @@ random.shuffle(arr)
 param = [3,5,0,7,6,4,2,1]
 
 
-gl = goal_test([2,4,6,8,3,1,7,4])
 
-testin = arr[1:len(arr)-1]
-hh = h([2,2,6,7,3,1,7,4])
 
 
 
