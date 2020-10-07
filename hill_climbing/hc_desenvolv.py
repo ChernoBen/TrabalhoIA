@@ -11,9 +11,6 @@ import random
 from deap import creator, base, tools, algorithms
 
 
-
-
-
 #N = Número de rainhas
 N = 8
 #log_N = número de bits para representar cada rainha
@@ -66,19 +63,13 @@ goal_test([2,4,6,8,3,1,7,4])
 h([2,2,6,7,3,1,7,4])
 
 '''codigo do professor até aqui'''
-
 arr = [i for i in range(N)]
 random.shuffle(arr)
 param = [3,5,0,7,6,4,2,1]
 
 
-
-
-
-
 def hill_clim(arr):
-  
-    #arr1 = arr
+      #arr1 = arr
     arr2 = arr
     contador = 1
     selects = arr[1:len(arr)]
@@ -97,7 +88,6 @@ def hill_clim(arr):
             random.shuffle(selects)
 
 
-
 eiy = [y for y in range(N)]
 antes = goal_test(param)
 eix = hill_clim([3,5,0,7,6,4,2,1])
@@ -106,6 +96,7 @@ depois = goal_test(param)
 '''criando tabuleiro'''
 colunas = [i for i in range(N)]
 tabuleiro = pd.DataFrame( index=(colunas), columns=(colunas))
+
 '''adicionando rainhas em suas posições'''
 for i in range(len(eiy)):
     tabuleiro[eiy[i]][eix[i]] = 'Rainha' 
