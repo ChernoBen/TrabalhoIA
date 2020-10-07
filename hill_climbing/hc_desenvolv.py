@@ -62,6 +62,9 @@ def nqueen_fitness(node):
 goal_test([2,4,6,8,3,1,7,4])
 h([2,2,6,7,3,1,7,4])
 
+
+
+
 '''codigo do professor até aqui'''
 arr = [i for i in range(N)]
 random.shuffle(arr)
@@ -69,7 +72,7 @@ param = [3,5,0,7,6,4,2,1]
 
 
 def hill_clim(arr):
-      #arr1 = arr
+    #arr1 = arr
     arr2 = arr
     contador = 1
     selects = arr[1:len(arr)]
@@ -95,7 +98,8 @@ depois = goal_test(param)
 
 '''criando tabuleiro'''
 colunas = [i for i in range(N)]
-tabuleiro = pd.DataFrame( index=(colunas), columns=(colunas))
+
+tabuleiro = pd.DataFrame(index = (colunas),columns = (colunas))
 
 '''adicionando rainhas em suas posições'''
 for i in range(len(eiy)):
