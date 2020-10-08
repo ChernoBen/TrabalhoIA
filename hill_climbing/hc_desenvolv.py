@@ -12,7 +12,7 @@ import random
 
 
 #N = Número de rainhas
-N = 24
+N = 8
 #log_N = número de bits para representar cada rainha
 log_N = int(np.log2(N))
 #criando tabuleiro
@@ -31,13 +31,34 @@ def conflicted(state, row, col):
 
 def conflict(row1, col1, row2, col2):
     """Would putting two queens in (row1, col1) and (row2, col2) conflict?"""
-    #rint(row1,col1,row2,col2)
+    #print(row1,col1,row2,col2)
     
     return (row1 == row2 or  # same row
             col1 == col2 or  # same column
             row1 - col1 == row2 - col2 or  # same \ diagonal
             row1 + col1 == row2 + col2)  # same / diagonal
 
+
+def hc(node):
+    
+    num_conflicts = 0
+    sol = []
+    vf = False
+    for (r1, c1) in enumerate(node):
+        #print('r1 e c1',(r1,c1))
+        for (r2, c2) in enumerate(node):
+            #print((r1,c1),':',(r2,c2))
+            if (r1, c1) != (r2, c2):
+                vf = conflict(r1, c1, r2, c2)
+                num_conflicts += conflict(r1, c1, r2, c2)
+                if num_conflicts > 0 :
+                    print(num_conflicts)
+                    sol.append([[r1,c1],[r2,c2],vf]) 
+               
+    
+    return sol
+        
+                
 def goal_test(state):
     """Check if all columns filled, no conflicts."""
     if state[-1] == -1:
@@ -102,19 +123,22 @@ def hill_clim(arr):
             random.shuffle(selects)
 
 
-
+solist = hc(param)
+'''
 eiy = [y for y in range(N)]
 antes = goal_test(param)
 eix = hill_clim(param)
 depois = goal_test(param)
 
+'''
 
 
-'''adicionando rainhas em suas posições'''
+
+'''adicionando rainhas em suas posições
 for i in range(len(eiy)):
     tabuleiro[eiy[i]][eix[i]] = 'Rainha' 
 #eix[i]
-
+'''
 
 
 
