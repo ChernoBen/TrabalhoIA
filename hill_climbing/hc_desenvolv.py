@@ -9,8 +9,6 @@ import numpy as np
 #from livelossplot import PlotLosses
 import random
 #from deap import creator, base, tools, algorithms
-
-
 #N = Número de rainhas
 N = 8
 
@@ -26,7 +24,7 @@ eiy = [y for y in range(N)]
 arr = [i for i in range(N)]
 random.shuffle(arr)
 param = arr
-list_control ={}
+
 
 
 '''criando estado inicial'''
@@ -87,6 +85,43 @@ def nqueen_fitness(node):
 #goal_test([2,4,6,8,3,1,7,4])
 hh = h([5,2,0,7,4,1,3,6])
 
+'''funcao verifica base de dados txt'''
+def verify(ls):  
+    #spl = [ls]
+    listnumeros = []
+    leitura = open('documento.txt','r')
+      
+    for item in leitura:
+        #print(int(item))
+        #print(item)
+        #spl.append(item.split())
+      
+        for numero in item:
+          # print(int(numero))
+            if numero != '\n':
+                listnumeros.append(int(numero))
+                if 1 == int(numero):
+                    pass
+                    #print('bom')
+    leitura.close()           
+    nivel = open('documento.txt','r')
+    pr = str(ls)
+    pb = pr.split('[')
+    pc = pb[1].split(']')
+    pd = pc[0].split(',')
+    lp =''
+    for valor in pd:
+        lp += valor
+    lp += '\n'    
+    arrParam = lp.replace(" ","")    
+    for nv in nivel:
+        '''se o valor ja existe no arquivo txt retorne True'''
+        if nv == arrParam:
+            print('ok')
+            return True
+       
+    nivel.close()
+                 
 
 '''codigo do professor termina aqui'''
 
@@ -97,7 +132,7 @@ def hill_clim(arr):
     contador = 1
     selects = arr[1:len(arr)]
     indice = 0
-
+    documento = open('documento.txt','w')
     while True:
         
         if goal_test(arr2) != False:
@@ -105,28 +140,30 @@ def hill_clim(arr):
             #for x in range(len(arr1)):
                 #print(x,arr2[x])
             return arr2
-    
         else:
-            
             contador = 1
             for i in range(len(selects)):
                 arr2[contador] = selects[i]
                 contador +=1
-        
-            list_control[str(indice)] = selects
+            
+            #list_control[str(indice)] = selects
+            for num in selects:
+                documento.write(str(num))
+            documento.write('\n')    
+                
             #print(list_control)
             indice += 1
             #print(arr2)
             #print(selects)
             random.shuffle(selects)
-            for item in list_control:
-                if item == selects:
-                    random.shuffle(selects)
             
+            if verify(selects) == True:
+                random.shuffle(selects)
+              
+    documento.close()       
 
 '''testando uma nova forma de seleção de coordenadas'''
-def hc(node):
-    
+def hc(node):    
     num_conflicts = 0
     sol = []
     vf = False
@@ -146,69 +183,15 @@ def hc(node):
     return sol
 
 hh  = hc(param)
-
 eix = hill_clim(param)
 '''
-adicionando rainhas em suas posições'''
+adicionando rainhas em suas posições
+'''
 for i in range(len(eiy)):
     tabuleiro[eiy[i]][eix[i]] = 'Rainha' 
 #eix[i]
-
-
-
-
-
 ls = [5,2,0,7,4,1,3,6]
-
-def verify(ls):
-    
-    documento = open('documento.txt','w')
-    for d in range(N):
-        for num in ls:
-            documento.write(str(num))
-            
-        documento.write('\n')    
-    documento.close()
-      
-    #spl = [ls]
-    listnumeros = []
-    leitura = open('documento.txt','r')
-      
-    for item in leitura:
-        print(int(item))
-        print(item)
-        #spl.append(item.split())
-      
-        for numero in item:
-          # print(int(numero))
-            if numero != '\n':
-                listnumeros.append(int(numero))
-                if 1 == int(numero):
-                    print('bom')
-    leitura.close()           
-    nivel = open('documento.txt','r')
-    pr = str(ls)
-    pb = pr.split('[')
-    pc = pb[1].split(']')
-    pd = pc[0].split(',')
-    lp =''
-    for valor in pd:
-        lp += valor
-    lp += '\n'    
-    arrParam = lp.replace(" ","")    
-    for nv in nivel:
-        if nv == arrParam:
-            print('ok')
-            return True
-        
-    nivel.close()
-                
-  
-
 result = verify(ls)
-        
-        
-        
         
         
         
