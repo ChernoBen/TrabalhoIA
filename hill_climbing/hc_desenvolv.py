@@ -53,7 +53,7 @@ def hc(node):
                 num_conflicts += conflict(r1, c1, r2, c2)
                 if num_conflicts > 0 :
                     print(num_conflicts)
-                    sol.append([[r1,c1],[r2,c2],vf]) 
+                    sol.append([[r1,c1],[r2,c2],[vf]]) 
                
     
     return sol
@@ -122,8 +122,25 @@ def hill_clim(arr):
             print(arr2)
             random.shuffle(selects)
 
-
+'''testando uma nova forma de seleção de coordenadas'''
 solist = hc(param)
+contagem = []
+peneira = []
+
+for item in solist:
+    if item[2] == [False]:
+        print('ok')
+    elif item[2] != False:
+        contagem.append([item[0],item[2]])
+        
+for obj in contagem:
+    if obj[0] in solist[0][0]:
+        if solist[0][2] == [True]:
+            peneira.append(obj)
+            
+    
+    
+    
 '''
 eiy = [y for y in range(N)]
 antes = goal_test(param)
