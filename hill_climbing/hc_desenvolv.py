@@ -13,11 +13,25 @@ import random
 
 #N = Número de rainhas
 N = 8
+
 #log_N = número de bits para representar cada rainha
 log_N = int(np.log2(N))
 #criando tabuleiro
 colunas = [i for i in range(N)]
+estado_inicial = pd.DataFrame(index=(colunas),columns=(colunas))
 tabuleiro = pd.DataFrame(index = (colunas),columns = (colunas))
+# coordenadas eixo Y
+eiy = [y for y in range(N)]
+#coordenadas eixo X
+arr = [i for i in range(N)]
+random.shuffle(arr)
+param = arr
+list_control ={}
+
+
+'''criando estado inicial'''
+for i in range(len(eiy)):
+    estado_inicial[eiy[i]][param[i]] = 'Rainha' 
 
 #Funções extraídas do código original do livro
 #https://github.com/aimacode/aima-python
@@ -38,27 +52,7 @@ def conflict(row1, col1, row2, col2):
             row1 - col1 == row2 - col2 or  # same \ diagonal
             row1 + col1 == row2 + col2)  # same / diagonal
 
-
-def hc(node):
-    
-    num_conflicts = 0
-    sol = []
-    vf = False
-    for (r1, c1) in enumerate(node):
-        #print('r1 e c1',(r1,c1))
-        for (r2, c2) in enumerate(node):
-            #print((r1,c1),':',(r2,c2))
-            if (r1, c1) != (r2, c2):
-                vf = conflict(r1, c1, r2, c2)
-                num_conflicts += conflict(r1, c1, r2, c2)
-                if num_conflicts > 0 :
-                    print(num_conflicts)
-                    sol.append([[r1,c1],[r2,c2],[vf]]) 
-               
-    
-    return sol
-        
-                
+                      
 def goal_test(state):
     """Check if all columns filled, no conflicts."""
     if state[-1] == -1:
@@ -94,17 +88,16 @@ def nqueen_fitness(node):
 hh = h([5,2,0,7,4,1,3,6])
 
 
-'''codigo do professor até aqui'''
-arr = [i for i in range(N)]
-random.shuffle(arr)
-param = arr
-
+'''codigo do professor termina aqui'''
 
 def hill_clim(arr):
     #arr1 = arr
+    global list_control
     arr2 = arr
     contador = 1
     selects = arr[1:len(arr)]
+    indice = 0
+
     while True:
         
         if goal_test(arr2) != False:
@@ -112,17 +105,114 @@ def hill_clim(arr):
             #for x in range(len(arr1)):
                 #print(x,arr2[x])
             return arr2
-        
-        contador = 1
-        for i in range(len(selects)):
-            arr2[contador] = selects[i]
-            contador +=1
-        
+    
         else:
-            print(arr2)
+            
+            contador = 1
+            for i in range(len(selects)):
+                arr2[contador] = selects[i]
+                contador +=1
+        
+            list_control[str(indice)] = selects
+            #print(list_control)
+            indice += 1
+            #print(arr2)
+            #print(selects)
             random.shuffle(selects)
+            for item in list_control:
+                if item == selects:
+                    random.shuffle(selects)
+            
 
 '''testando uma nova forma de seleção de coordenadas'''
+def hc(node):
+    
+    num_conflicts = 0
+    sol = []
+    vf = False
+    for (r1, c1) in enumerate(node):
+        #print('r1 e c1',(r1,c1))
+        for (r2, c2) in enumerate(node):
+            #print((r1,c1),':',(r2,c2))
+            if (r1, c1) != (r2, c2):
+                vf = conflict(r1, c1, r2, c2)
+                num_conflicts += conflict(r1, c1, r2, c2)
+                if num_conflicts > 0 :
+                    print(num_conflicts)
+                    #verifica combinações sem conflito
+                    if vf == True:    
+                        sol.append([c1,c2])             
+    
+    return sol
+
+hh  = hc(param)
+
+eix = hill_clim(param)
+'''
+adicionando rainhas em suas posições'''
+for i in range(len(eiy)):
+    tabuleiro[eiy[i]][eix[i]] = 'Rainha' 
+#eix[i]
+
+
+
+
+
+ls = [5,2,0,7,4,1,3,6]
+
+def verify(ls):
+    
+    documento = open('documento.txt','w')
+    for d in range(N):
+        for num in ls:
+            documento.write(str(num))
+            
+        documento.write('\n')    
+    documento.close()
+      
+    #spl = [ls]
+    listnumeros = []
+    leitura = open('documento.txt','r')
+      
+    for item in leitura:
+        print(int(item))
+        print(item)
+        #spl.append(item.split())
+      
+        for numero in item:
+          # print(int(numero))
+            if numero != '\n':
+                listnumeros.append(int(numero))
+                if 1 == int(numero):
+                    print('bom')
+    leitura.close()           
+    nivel = open('documento.txt','r')
+    pr = str(ls)
+    pb = pr.split('[')
+    pc = pb[1].split(']')
+    pd = pc[0].split(',')
+    lp =''
+    for valor in pd:
+        lp += valor
+    lp += '\n'    
+    arrParam = lp.replace(" ","")    
+    for nv in nivel:
+        if nv == arrParam:
+            print('ok')
+            return True
+        
+    nivel.close()
+                
+  
+
+result = verify(ls)
+        
+        
+        
+        
+        
+        
+'''
 solist = hc(param)
 contagem = []
 peneira = []
@@ -131,33 +221,11 @@ for item in solist:
     if item[2] == [False]:
         print('ok')
     elif item[2] != False:
-        contagem.append([item[0],item[2]])
+        contagem.append([item[0],item[]])
         
 for obj in contagem:
     if obj[0] in solist[0][0]:
         if solist[0][2] == [True]:
             peneira.append(obj)
             
-    
-    
-    
-'''
-eiy = [y for y in range(N)]
-antes = goal_test(param)
-eix = hill_clim(param)
-depois = goal_test(param)
-
-'''
-
-
-
-'''adicionando rainhas em suas posições
-for i in range(len(eiy)):
-    tabuleiro[eiy[i]][eix[i]] = 'Rainha' 
-#eix[i]
-'''
-
-
-
-
-[5,2,0,7,4,1,3,6]
+verificar conlfitos e tomar decisão''' 
