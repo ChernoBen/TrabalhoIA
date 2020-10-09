@@ -26,7 +26,6 @@ random.shuffle(arr)
 param = arr
 
 
-
 '''criando estado inicial'''
 for i in range(len(eiy)):
     estado_inicial[eiy[i]][param[i]] = 'Rainha' 
@@ -70,7 +69,6 @@ def h(node):
                 num_conflicts += conflict(r1, c1, r2, c2)
                 confli_list.append([r1, c1, r2, c2])
     #print(confli_list)    
-    
     #print("numero conf",num_conflicts)
     return num_conflicts
 
@@ -122,46 +120,28 @@ def verify(ls):
        
     nivel.close()
                  
-
 '''codigo do professor termina aqui'''
 
 def hill_clim(arr):
     #arr1 = arr
     global list_control
     arr2 = arr
-    contador = 1
-    selects = arr[1:len(arr)]
-    indice = 0
+
     documento = open('documento.txt','w')
     while True:
-        
         if goal_test(arr2) != False:
-            #result = [j for j in arr2]
-            #for x in range(len(arr1)):
-                #print(x,arr2[x])
             return arr2
         else:
-            contador = 1
-            for i in range(len(selects)):
-                arr2[contador] = selects[i]
-                contador +=1
-            
             #list_control[str(indice)] = selects
-            for num in selects:
+            for num in arr2:
                 documento.write(str(num))
-            documento.write('\n')    
-                
-            #print(list_control)
-            indice += 1
-            #print(arr2)
-            #print(selects)
-            random.shuffle(selects)
-            
-            if verify(selects) == True:
-                random.shuffle(selects)
-              
+            documento.write('\n') 
+            random.shuffle(arr2)
+            if verify(arr2) == True:
+                random.shuffle(arr2)              
     documento.close()       
 
+    
 '''testando uma nova forma de seleção de coordenadas'''
 def hc(node):    
     num_conflicts = 0
@@ -183,7 +163,7 @@ def hc(node):
     return sol
 
 hh  = hc(param)
-eix = hill_clim(param)
+eix = hill_clim(arr)
 '''
 adicionando rainhas em suas posições
 '''
