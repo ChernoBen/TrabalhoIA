@@ -51,15 +51,9 @@ def h(estado):
         for (r2, c2) in enumerate(estado):
             if (r1, c1) != (r2, c2):
                 num_conflicts += conflict(r1, c1, r2, c2)
-    #retorna a quantidade de conlitos negativo dividido p/2   
-              
+    #retorna a quantidade de conlitos negativo dividido p/2             
     return -num_conflicts/2
 
-
-def randomNearStates(N_Queens, estado):
-    #recebe o numero de rainhas e a lista contendo o estado
-    # e retorna um elemento aleatorio dentro da lista retornada pela função nearStates
-    return choice(buscaEstadosProximos(N_Queens, estado) )
 
 def procuraVizinhos(vizinhos, estado):
     #lista de melhores vizinhos
@@ -74,7 +68,7 @@ def procuraVizinhos(vizinhos, estado):
     		melhorVizinho.append(n)
     #pos recebe um numero entre 0 e tamanho da lista (b_neigh -1)        
     pos = random.randint(0,len(melhorVizinho)-1)
-    print('search:',vizinho)
+    print('formação : ',vizinho)
     return melhorVizinho[pos]
 
 def hillclimbing(N,estadoInicial):
@@ -123,7 +117,7 @@ fim = time.time()
 print_board(estadoInicial)
 
 '''verifica se o resultado segue as regras do problema'''
-print(goal_test(estadoInicial))
+result = goal_test(estadoInicial)
 
 '''note que a ultima lista impressa contem conflitos'''
 print("{:.5f}ms".format((fim - inicio) * 1000))
