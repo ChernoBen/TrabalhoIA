@@ -14,7 +14,10 @@ import pandas as pd
 from collections import Counter
 
 def initial(N):
-    return list(random.randrange(N) for i in range(N))
+    global lista_global
+    lista = list(random.randrange(N) for i in range(N))
+    lista_global = lista
+    return lista
            
 
 def goal_test(state):
@@ -92,12 +95,16 @@ def simulated_annealing(estado, schedule=exp_schedule()):
             current = neighbour
             current_h = new_h
 
-N = 32
+###chamadas
+lista_global = []
+N = 8
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
 estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
 #definindo estado inicial
 estado = initial(N)
+for b in range(len(lista_global)):
+    estado_inicial[b][lista_global[b]] = 'Queen'
 inicio = time.time()
 teste = simulated_annealing(estado)
 fim = time.time()
