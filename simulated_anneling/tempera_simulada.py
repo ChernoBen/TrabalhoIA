@@ -15,13 +15,7 @@ from collections import Counter
 
 def initial(N):
         return list(random.randrange(N) for i in range(N))
-
-def print_board(state_board):
-    for i in range( len(state_board) ):
-        for j in range( len(state_board) ):
-            if state_board[j] == i:
-                estado_final[i][j] = 'Rainha'
-            
+           
 
 def goal_test(state):
         a, b, c = (set() for i in range(3))
