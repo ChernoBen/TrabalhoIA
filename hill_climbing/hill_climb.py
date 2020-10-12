@@ -91,7 +91,6 @@ def hill_climbing(N_Queens,state):
 		    break	
         #vizinho recebe resultado da busca dos melhores vizinhos
 		neighbour = search_bests_neighs(neighbours, state)
-		#neighbour = max(neighbours, key=lambda state: he(state))
 		#print(neighbour)
         #se a quantidade de conflitos em (neighbour) for menor que em estado atual (current)
         #pare
