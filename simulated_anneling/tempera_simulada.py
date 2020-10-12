@@ -82,6 +82,7 @@ def simulated_annealing(estado, schedule=exp_schedule()):
     current_h = heuristic(current) #problem.heuristic(current)
     for t in range(sys.maxsize): #alterado
         T = schedule(t)
+        print(T)
         if T == 0 or goal_test(current):
             return current
         neighbour = randomNearState(current)
