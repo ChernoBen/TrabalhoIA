@@ -14,37 +14,37 @@ import pandas as pd
 from collections import Counter
 
 def initial(N):
-        return list(random.randrange(N) for i in range(N))
+    return list(random.randrange(N) for i in range(N))
            
 
 def goal_test(state):
-        a, b, c = (set() for i in range(3))
-        for row, col in enumerate(state):
-            if col in a or row - col in b or row + col in c:
-                return False
-            a.add(col)
-            b.add(row - col)
-            c.add(row + col)
-        return True
+    a, b, c = (set() for i in range(3))
+    for row, col in enumerate(state):
+        if col in a or row - col in b or row + col in c:
+            return False
+        a.add(col)
+        b.add(row - col)
+        c.add(row + col)
+    return True
 
 
 def heuristic(state):
-        # define a,b,c como contadores
-        a, b, c = [Counter() for i in range(3)]
-        # contar quantas rainhas tem o os valores (a,b,c)
-        # de forma que se obtem por exemplo quantas rainhas tem o valor de a=1
-        for row, col in enumerate(state):
-            a[col] += 1
-            b[row - col] += 1
-            c[row + col] += 1
-        h = 0  # inicia as colisoes com 0
-        # varre as estruturas de contagem (a,b,c) apenas incrementando o valor das colisoes
-        # caso para algum valor de (a/b/c)>1 ja que e feito cnt[key]-1
-        # divide para retirar contagens dobradas
-        for count in [a, b, c]:
-            for key in count:
-                h += count[key] * (count[key] - 1) / 2
-        return -h
+    # define a,b,c como contadores
+    a, b, c = [Counter() for i in range(3)]
+    # contar quantas rainhas tem o os valores (a,b,c)
+    # de forma que se obtem por exemplo quantas rainhas tem o valor de a=1
+    for row, col in enumerate(state):
+        a[col] += 1
+        b[row - col] += 1
+        c[row + col] += 1
+    h = 0  # inicia as colisoes com 0
+    # varre as estruturas de contagem (a,b,c) apenas incrementando o valor das colisoes
+    # caso para algum valor de (a/b/c)>1 ja que e feito cnt[key]-1
+    # divide para retirar contagens dobradas
+    for count in [a, b, c]:
+        for key in count:
+            h += count[key] * (count[key] - 1) / 2
+    return -h
 
 # Children ou estados vizinhos: children[]
 #   Retorna todos os estados acessiveis a partir do atual movendo as pecas por coluna
@@ -68,8 +68,6 @@ def randomNearState(state):
 
 ##############################
 # Definindo funçao #
-
-
     
 def exp_schedule(k=4, alpha=0.001, limit=20000):
     return lambda t: (k * math.exp(-alpha * t) if t < limit else 0)
