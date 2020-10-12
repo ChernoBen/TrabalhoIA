@@ -103,16 +103,16 @@ estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
 estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
 #definindo estado inicial
 estado = initial(N)
+#povoando estado inicial no tabuleiro
 for b in range(len(lista_global)):
     estado_inicial[b][lista_global[b]] = 'Queen'
+    
 inicio = time.time()
 teste = simulated_annealing(estado)
 fim = time.time()
 print("{:.5f}ms".format((fim - inicio) * 1000))
 
-
-#criando dataframe de estados
-
+#povoando dataframe de estado final no tabuleiro
 for a in range(len(teste)):
     estado_final[a][teste[a]] = "Queen"
 
