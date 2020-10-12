@@ -13,6 +13,14 @@ import time
 import pandas as pd
 from collections import Counter
 
+####plot libs######
+import pandas as pd
+
+import matplotlib.pylab as plt
+
+from matplotlib.pylab import rcParams
+
+
 def initial(N):
     global lista_global
     lista = list(random.randrange(N) for i in range(N))
@@ -71,21 +79,34 @@ def randomNearState(state):
 
 ##############################
 # Definindo funçao #
-    
+# k: decide o tamanho da "passada" da curva
+# alpha: define a forma do decaimento da temperatura
+# limit: numero de iteracoes 
 def exp_schedule(k=4, alpha=0.001, limit=20000):
+    # a cada iteração reduzir alpha% a temperatura 
+    #a probabilidade de aceitação de uma solução pior =
+    # exp(variação de energia)/temperatura
+    #teperatura é um parametro de controle 
     return lambda t: (k * math.exp(-alpha * t) if t < limit else 0)
 
 #problem.initial= numero de rainhas
 #problem.heuristic(current) = funcao he(current)
 def simulated_annealing(estado, schedule=exp_schedule()):
-    current = estado #problem.initial()
-    current_h = heuristic(current) #problem.heuristic(current)
+    
+    current = estado 
+    current_h = heuristic(current) 
     for t in range(sys.maxsize): #alterado
+        # a cada iteração reduzir alpha% a temperatura 
         T = schedule(t)
         print(T)
+        global var_temp
+        var_temp.append(T)
         if T == 0 or goal_test(current):
             return current
         neighbour = randomNearState(current)
+        global var_vizinhos
+        var_vizinhos.append(neighbour)
+        print(neighbour)
         if not neighbour:
             return current
         # OBS: problem.heuristic(state) retorna -h
@@ -97,6 +118,8 @@ def simulated_annealing(estado, schedule=exp_schedule()):
             current_h = new_h
 
 ###chamadas
+var_temp =[]
+var_vizinhos = []
 lista_global = []
 N = 8
 eixos = [i for i in range(N)]
@@ -104,6 +127,7 @@ estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
 estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
 #definindo estado inicial
 estado = initial(N)
+
 #povoando estado inicial no tabuleiro
 for b in range(len(lista_global)):
     estado_inicial[b][lista_global[b]] = 'Queen'
@@ -116,5 +140,18 @@ print("{:.5f}ms".format((fim - inicio) * 1000))
 #povoando dataframe de estado final no tabuleiro
 for a in range(len(teste)):
     estado_final[a][teste[a]] = "Queen"
+    
+##########conceitos#########
+# Estados do sistema : solucoes viaveis
+# Energia : Custo
+# Mudança de estado : Estrutura de vizinhança
+# Temperatura : parametro de controle
+# estado congelado : Solução heuristica(estado em que acabou o processo de tempera do material)
+######objtivos######
+# atingir soluções vizinhas a partir do estado inicial 
+# 
+
+
+  
 
 
