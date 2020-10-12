@@ -93,12 +93,18 @@ def simulated_annealing(estado, schedule=exp_schedule()):
             current_h = new_h
 
 N = 32
-estado = initial(N)
-teste = simulated_annealing(estado)
-#criando dataframe de estados
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
 estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
+#definindo estado inicial
+estado = initial(N)
+inicio = time.time()
+teste = simulated_annealing(estado)
+fim = time.time()
+print("{:.5f}ms".format((fim - inicio) * 1000))
+
+
+#criando dataframe de estados
 
 for a in range(len(teste)):
     estado_final[a][teste[a]] = "Queen"

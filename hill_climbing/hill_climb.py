@@ -113,14 +113,14 @@ estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
 state_board = list(random.randrange(N) for i in range(N))
 for i in range(len(state_board)):
     estado_inicial[eixos[i]][state_board[i]] = 'Rainha'    
-begin = time.time()
+inicio = time.time()
 state_board = hill_climbing(N, state_board)  
-end = time.time()
+fim = time.time()
 
 #Povoando dataframe com resultado
 print_board(state_board)
 '''verifica se o resultado segue as regras do problema'''
 print(goal_test(state_board))
 '''note que a ultima lista impressa contem conflitos'''
-print("{:.5f}ms".format((end - begin) * 1000))
+print("{:.5f}ms".format((fim - inicio) * 1000))
 print(psutil.swap_memory())
