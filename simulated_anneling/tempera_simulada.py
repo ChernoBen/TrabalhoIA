@@ -152,7 +152,7 @@ data = {'Temperatura': indices,
 dframe = pd.DataFrame(data,columns=['Temperatura','Iterações'])
 #print(dframe)
 
-dframe.plot(x='Iterações',y='Temperatura',kind='scatter')
+dframe.plot(x='Iterações',y='Temperatura',kind='line')
 
 memoria = (process.memory_info()[0])/1000000
 
