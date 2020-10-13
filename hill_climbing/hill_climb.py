@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Oct 12 12:51:20 2020
+
+@author: Benjamim
+"""
+
 import os
 import psutil
 import random
