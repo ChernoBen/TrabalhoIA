@@ -12,11 +12,9 @@ import random
 from random import choice
 import time
 import pandas as pd
-import numpy as np
 from collections import Counter
 
 ####plot libs######
-import matplotlib.pyplot as plt
 from pandas.plotting import register_matplotlib_converters
 #conversor de objetos pandas para plot
 register_matplotlib_converters()
@@ -144,7 +142,7 @@ tempo_total = fim-inicio
 for a in range(len(teste)):
     estado_final[a][teste[a]] = "Rainha"
     
-    
+# preparando plot de demontração da função do comportamento do algoritimo    
 indices = [i for i in var_temp]    
 colunas = [j for j in range(len(var_temp))]
  
