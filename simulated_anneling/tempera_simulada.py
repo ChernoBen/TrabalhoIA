@@ -84,9 +84,9 @@ def randomNearState(state):
 # limit: numero de iteracoes 
 def exp_schedule(k=1000, alpha=0.001, limit=20000):
     # a cada iteração reduzir alpha% a temperatura 
-    #a probabilidade de aceitação de uma solução pior =
+    # a probabilidade de aceitação de uma solução pior =
     # exp(variação de energia)/temperatura
-    #teperatura é um parametro de controle 
+    # teperatura é um parametro de controle 
     return lambda t: (k * math.exp(-alpha * t) if t < limit else 0)
 
 #problem.initial= numero de rainhas

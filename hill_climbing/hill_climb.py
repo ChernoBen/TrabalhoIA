@@ -4,7 +4,7 @@ import random
 import time
 import pandas as pd
 
-
+floss = []
 process = psutil.Process(os.getpid())
 
 def print_board(state_board): #print_board
@@ -74,6 +74,7 @@ def procuraVizinhos(vizinhos, estado):
     return melhorVizinho[pos]
 
 def hillclimbing(N,estadoInicial):
+     
 	atual = estadoInicial
 	contador = 0
 	while True:
@@ -93,12 +94,13 @@ def hillclimbing(N,estadoInicial):
       # contador +=1
 		contador += 1 
 		atual = vizinho
+    
 	print("Quantidade de mudanças até a resposta : ",contador,'\n','loss :',h(vizinho))
 	return atual
 #############################
 #variavel global para receber pontuação da solução
-floss = 0
-N = 8
+
+N = 32
 
 #criando dataframe de estados
 eixos = [i for i in range(N)]
@@ -125,7 +127,7 @@ result = goal_test(resultado)
 #print("{:.5f}s".format(fim - inicio))
 
 memoria = (process.memory_info()[0])/1000000
-print("custo :",floss,' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
+print("custo :",h(resultado),' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
 
 
 
