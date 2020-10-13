@@ -4,6 +4,7 @@ Created on Mon Oct 12 12:51:20 2020
 
 @author: Benjamim
 """
+import os
 import math
 import sys
 import psutil
@@ -11,15 +12,16 @@ import random
 from random import choice
 import time
 import pandas as pd
+import numpy as np
 from collections import Counter
 
 ####plot libs######
-import pandas as pd
+import matplotlib.pyplot as plt
+from pandas.plotting import register_matplotlib_converters
+#conversor de objetos pandas para plot
+register_matplotlib_converters()
 
-import matplotlib.pylab as plt
-
-from matplotlib.pylab import rcParams
-
+process = psutil.Process(os.getpid())
 
 def initial(N):
     global lista_global
@@ -82,7 +84,7 @@ def randomNearState(state):
 # k: decide o tamanho da "passada" da curva
 # alpha: define a forma do decaimento da temperatura
 # limit: numero de iteracoes 
-def exp_schedule(k=4, alpha=0.001, limit=20000):
+def exp_schedule(k=1000, alpha=0.001, limit=20000):
     # a cada iteração reduzir alpha% a temperatura 
     #a probabilidade de aceitação de uma solução pior =
     # exp(variação de energia)/temperatura
@@ -130,17 +132,37 @@ estado = initial(N)
 
 #povoando estado inicial no tabuleiro
 for b in range(len(lista_global)):
-    estado_inicial[b][lista_global[b]] = 'Queen'
+    estado_inicial[b][lista_global[b]] = 'Rainha'
     
 inicio = time.time()
 teste = simulated_annealing(estado)
 fim = time.time()
-print("{:.5f}ms".format((fim - inicio) * 1000))
+#print("{:.5f}s".format(fim - inicio))
+tempo_total = fim-inicio 
 
 #povoando dataframe de estado final no tabuleiro
 for a in range(len(teste)):
-    estado_final[a][teste[a]] = "Queen"
+    estado_final[a][teste[a]] = "Rainha"
     
+    
+indices = [i for i in var_temp]    
+colunas = [j for j in range(len(var_temp))]
+ 
+data = {'Temperatura': indices,
+        'Iterações': colunas}
+
+dframe = pd.DataFrame(data,columns=['Temperatura','Iterações'])
+#print(dframe)
+
+dframe.plot(x='Iterações',y='Temperatura',kind='scatter')
+
+memoria = (process.memory_info()[0])/1000000
+
+print("custo :",var_temp[len(var_temp)-1],' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )  
+##### tratando plot    
+    
+
+
 ##########conceitos#########
 # Estados do sistema : solucoes viaveis
 # Energia : Custo
@@ -150,8 +172,5 @@ for a in range(len(teste)):
 ######objtivos######
 # atingir soluções vizinhas a partir do estado inicial 
 # 
-
-
-  
-
+### criando series ####
 

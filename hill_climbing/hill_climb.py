@@ -1,15 +1,18 @@
+import os
 import psutil
 import random
-from random import choice
 import time
 import pandas as pd
 
+
+process = psutil.Process(os.getpid())
+
 def print_board(state_board): #print_board
-    for i in range( len(state_board) ):
-        for j in range( len(state_board) ):
+    for i in range(len(state_board)):
+        for j in range(len(state_board)):
             if state_board[j] == i:
                 estado_final[i][j] = 'Rainha'
-            
+                 
 def conflicted(state, row, col):
     """Would placing a queen at (row, col) conflict with anything?"""
     return any(conflict(row, col, state[c], c)for c in range(col))
@@ -45,13 +48,12 @@ def buscaEstadosProximos(N,estado):
 
 
 def h(estado):
-    #Return number of conflicting queens for a given node
     num_conflicts = 0
     for (r1, c1) in enumerate(estado):
         for (r2, c2) in enumerate(estado):
             if (r1, c1) != (r2, c2):
                 num_conflicts += conflict(r1, c1, r2, c2)
-    #retorna a quantidade de conlitos negativo dividido p/2             
+    #retorna a quantidade de conflitos negativo dividido p/2             
     return -num_conflicts/2
 
 
@@ -94,7 +96,7 @@ def hillclimbing(N,estadoInicial):
 	print("Quantidade de mudanças até a resposta : ",contador,'\n','loss :',h(vizinho))
 	return atual
 #############################
-
+#variavel global para receber pontuação da solução
 floss = 0
 N = 8
 
@@ -110,16 +112,20 @@ for i in range(len(estadoInicial)):
     
 #inicia hill climb    
 inicio = time.time()
-estadoInicial = hillclimbing(N, estadoInicial)  
+resultado = hillclimbing(N, estadoInicial)  
 fim = time.time()
 
 #Povoando dataframe com resultado
-print_board(estadoInicial)
+print_board(resultado)
 
 '''verifica se o resultado segue as regras do problema'''
-result = goal_test(estadoInicial)
+result = goal_test(resultado)
 
 '''note que a ultima lista impressa contem conflitos'''
-print("{:.5f}ms".format((fim - inicio) * 1000))
+#print("{:.5f}s".format(fim - inicio))
 
-print(psutil.swap_memory())
+memoria = (process.memory_info()[0])/1000000
+print("custo :",floss,' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
+
+
+
