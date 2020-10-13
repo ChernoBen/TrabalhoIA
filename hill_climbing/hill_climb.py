@@ -78,7 +78,7 @@ def procuraVizinhos(vizinhos, estado):
     	if(h(vizinho) == h(n)):
     		melhorVizinho.append(n)
     global heuristica
-    heuristica.append(h(n))          
+    heuristica.append(h(vizinho))          
     #pos recebe um numero entre 0 e tamanho da lista (b_neigh -1)  
         
     pos = random.randint(0,len(melhorVizinho)-1)
@@ -107,12 +107,12 @@ def hillclimbing(N,estadoInicial):
 		contador += 1 
 		atual = vizinho
     
-	print("Quantidade de mudanças até a resposta : ",contador,'\n','loss :',h(vizinho))
+	print("Quantidade de mudanças até a resposta : ",contador)
 	return atual
 #############################
 #variavel global para receber pontuação da solução
 
-N = 32
+N = 8
 #criando dataframe de estados
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
@@ -152,7 +152,7 @@ plt.show()
 
 
 memoria = (process.memory_info()[0])/1000000
-print("custo :",h(resultado),' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
+print("custo :",h(resultado),' ','memoria mbytes :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
 
 
 

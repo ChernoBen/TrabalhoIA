@@ -150,18 +150,19 @@ data = {'Temperatura': indices,
         'Iterações': colunas}
 
 dframe = pd.DataFrame(data,columns=['Temperatura','Iterações'])
+
 #print(dframe)
 
 dframe.plot(x='Iterações',y='Temperatura',kind='line')
 
 memoria = (process.memory_info()[0])/1000000
 
-print("custo :",var_temp[len(var_temp)-1],' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )  
+print("custo :",var_temp[len(var_temp)-1],' ','memoria em mbytes:',' ',memoria, 'tempo em segundos :',(fim - inicio) )  
 ##### tratando plot    
     
 
 
-##########conceitos#########
+########## conceitos #########
 # Estados do sistema : solucoes viaveis
 # Energia : Custo
 # Mudança de estado : Estrutura de vizinhança
