@@ -152,7 +152,7 @@ plt.show()
 
 
 memoria = (process.memory_info()[0])/1000000
-print("custo :",h(resultado),' ','memoria mbytes :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
+print('memoria mbytes :',memoria,'\n','tempo em segundos :',(fim - inicio) )
 
 
 
