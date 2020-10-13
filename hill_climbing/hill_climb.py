@@ -3,9 +3,9 @@ import psutil
 import random
 import time
 import pandas as pd
-
-floss = []
+import matplotlib.pyplot as plt
 process = psutil.Process(os.getpid())
+heuristica = [] 
 
 def print_board(state_board): #print_board
     for i in range(len(state_board)):
@@ -53,7 +53,8 @@ def h(estado):
         for (r2, c2) in enumerate(estado):
             if (r1, c1) != (r2, c2):
                 num_conflicts += conflict(r1, c1, r2, c2)
-    #retorna a quantidade de conflitos negativo dividido p/2             
+    #retorna a quantidade de conflitos negativo dividido p/2 
+              
     return -num_conflicts/2
 
 
@@ -62,13 +63,17 @@ def procuraVizinhos(vizinhos, estado):
     melhorVizinho = []
     #
     vizinho = max(vizinhos, key=lambda estado: h(estado))
+    
     melhorVizinho.append(vizinho)
     #para cada intem em neighbours verifique:
     for n in vizinhos:
         #se o numero de conflitos em (neigh) for igual a (n), adicione (n) na lista (b_neigh)
     	if(h(vizinho) == h(n)):
     		melhorVizinho.append(n)
-    #pos recebe um numero entre 0 e tamanho da lista (b_neigh -1)        
+    global heuristica
+    heuristica.append(h(n))          
+    #pos recebe um numero entre 0 e tamanho da lista (b_neigh -1)  
+        
     pos = random.randint(0,len(melhorVizinho)-1)
     print('formação : ',vizinho)
     return melhorVizinho[pos]
@@ -101,7 +106,6 @@ def hillclimbing(N,estadoInicial):
 #variavel global para receber pontuação da solução
 
 N = 32
-
 #criando dataframe de estados
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
@@ -123,8 +127,22 @@ print_board(resultado)
 '''verifica se o resultado segue as regras do problema'''
 result = goal_test(resultado)
 
-'''note que a ultima lista impressa contem conflitos'''
-#print("{:.5f}s".format(fim - inicio))
+### plot grafico 
+
+
+indices = [i for i in heuristica]    
+colunas = [j for j in range(len(heuristica))]
+ 
+data = {'Heuristica': indices,
+        'Iterações': colunas}
+
+dframe = pd.DataFrame(data,columns=['Heuristica','Iterações'])
+
+
+dframe.plot(x='Iterações',y='Heuristica',kind='line')
+plt.show()
+
+
 
 memoria = (process.memory_info()[0])/1000000
 print("custo :",h(resultado),' ','memoria :',' ',memoria, 'tempo em segundos :',(fim - inicio) )
