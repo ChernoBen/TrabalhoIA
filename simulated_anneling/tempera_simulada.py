@@ -49,38 +49,28 @@ def goal_test(state):
         c.add(row + col)
     return True
 
-
-# Children ou estados vizinhos: children[]
 #   Retorna todos os estados acessiveis a partir do atual movendo as pecas por coluna
 def estadosProximos(estado):
     estProx = []
     # Para cada state[coluna] verfica se as colunas vizinhas estao vazias
     for linha in range(N):
         for coluna in range(N):
-            # Se for diferente:
-            #   entao a col atual da iteracao esta disponivel para movimentar-se
-            #   visto que o state[] guarda o valor das colunas em que estao as rainhas
             if coluna != estado[linha]:
                 melhorEstado = list(estado)
-                melhorEstado[linha] = coluna  # Troca a coluna para a vazia
-                estProx.append(list(melhorEstado))  # E inclui na lista de nearStates
+                melhorEstado[linha] = coluna  
+                estProx.append(list(melhorEstado))  
     return estProx
 
 # Retorna uma escolha aleatoria dentre os estados proximos
 def geraEstado(estado):
     return choice(estadosProximos(estado))
 
-
 # Variação da temperatura
 def vtemp(temperatura=1000, decaimentoPercent=0.001):
     # a cada iteração reduzir temperatura pelo decaimento
-    # a probabilidade de aceitação de uma solução pior igual
-    # exp(variação de energia)/temperatura
     # teperatura é um parametro de controle 
     return lambda temp: (temperatura * math.exp(-decaimentoPercent * temp))
 
-#problem.initial= numero de rainhas
-#problem.heuristic(current) = funcao he(current)
 def temperaSimulada(estado,vtemp = vtemp()):
     atual = estado 
     objetivoAtual = h(atual) 
@@ -98,7 +88,6 @@ def temperaSimulada(estado,vtemp = vtemp()):
         print(vizinho)
         if not vizinho:
             return atual
-        # OBS: problem.heuristic(state) retorna -h
         novoObjetivo = h(vizinho)
         variacao = novoObjetivo - objetivoAtual
         # Tomada de decisao com base na variacao de temperatura e probabilidade sendo 0 = 0% e 1 = 1%
@@ -110,7 +99,7 @@ def temperaSimulada(estado,vtemp = vtemp()):
 var_temp =[]
 var_vizinhos = []
 lista_global = []
-N = 8
+N = 128
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
 estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
@@ -150,8 +139,6 @@ memoria = (process.memory_info()[0])/1000000
 print('variação da temp :',var_temp[len(var_temp)-1],'\n','memoria em mbytes:',memoria,'\n','tempo em segundos :',(fim - inicio) )  
 ##### tratando plot    
     
-
-
 ########## conceitos #########
 # Estados do sistema : solucoes viaveis
 # Energia : Custo

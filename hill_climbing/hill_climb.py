@@ -112,7 +112,7 @@ def hillclimbing(N,estadoInicial):
 #############################
 #variavel global para receber pontuação da solução
 
-N = 8
+N = 64
 #criando dataframe de estados
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
