@@ -66,10 +66,10 @@ def geraEstado(estado):
     return choice(estadosProximos(estado))
 
 # Variação da temperatura
-def vtemp(temperatura=1000, decaimentoPercent=0.001):
+def vtemp(temperatura=1000, decaimentoPercent=0.001,iteracoes = 99999):
     # a cada iteração reduzir temperatura pelo decaimento
     # teperatura é um parametro de controle 
-    return lambda temp: (temperatura * math.exp(-decaimentoPercent * temp))
+    return lambda temp: (temperatura * math.exp(-decaimentoPercent * temp)if iteracoes>temp else 0)
 
 def temperaSimulada(estado,vtemp = vtemp()):
     atual = estado 
@@ -99,7 +99,7 @@ def temperaSimulada(estado,vtemp = vtemp()):
 var_temp =[]
 var_vizinhos = []
 lista_global = []
-N = 128
+N = 64
 eixos = [i for i in range(N)]
 estado_inicial  = pd.DataFrame(index=(eixos),columns=(eixos))
 estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
