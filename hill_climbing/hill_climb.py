@@ -32,7 +32,7 @@ def conflict(row1, col1, row2, col2):
     return ( (row1 == row2 or  # same row
               col1 == col2 or  # same column
               row1 - col1 == row2 - col2 or  # same \ diagonal
-              row1 + col1 == row2 + col2 ) )  # same / diagonal
+              row1 + col1 == row2 + col2 ))  # same / diagonal
 
 def goal_test(state):
     """Check if all columns filled, no conflicts."""
