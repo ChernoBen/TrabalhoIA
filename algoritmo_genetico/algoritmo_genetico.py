@@ -80,9 +80,9 @@ def geraDescendente(ascendentes): #c1 and c2 are chromosomes
 #Variable Definition
 #crossover_rate = 1
 inicio = time.time()
-qtdSolucoes = 45
-N = 128
-geracoes = 999
+qtdSolucoes = 24
+N = 8
+geracoes = 100
 #Variable Definition
 solucoes = geraPoulacao(qtdSolucoes,N)
 fitness = [obterFitness(item) for item in solucoes]
