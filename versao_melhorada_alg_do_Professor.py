@@ -62,11 +62,11 @@ def binToDec(top,lg):
     ini = 0
 
     while True:
-        if cont >=len(j)//3:
+        if cont >=len(j)//lg:
             break
         c.append("".join(map(str,j[ini:ras]))) 
         ini = ras
-        ras += 2
+        ras += lg
         cont += 1
 
     for item in c:
