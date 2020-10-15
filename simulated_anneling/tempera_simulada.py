@@ -74,7 +74,7 @@ def vtemp(temperatura=1000, decaimentoPercent=0.001,iteracoes = 99999):
 def temperaSimulada(estado,vtemp = vtemp()):
     atual = estado 
     objetivoAtual = h(atual) 
-    for i in range(sys.maxsize): #alterado
+    for i in range(sys.maxsize): 
         # a cada iteração reduzir alpha% a temperatura 
         temperatura = vtemp(i)
         print(temperatura)
