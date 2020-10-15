@@ -10,6 +10,7 @@ import numpy
 import pandas as pd
 import psutil
 import time
+
 process = psutil.Process(os.getpid())
 #Gera a população de possiveis soluções
 #retrorna uma lista de listas de tamaanho N

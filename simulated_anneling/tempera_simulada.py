@@ -13,7 +13,6 @@ from random import choice
 import time
 import pandas as pd
 from collections import Counter
-
 ####plot libs######
 from pandas.plotting import register_matplotlib_converters
 #conversor de objetos pandas para plot

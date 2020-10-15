@@ -11,6 +11,7 @@ import random
 import time
 import pandas as pd
 import matplotlib.pyplot as plt
+
 process = psutil.Process(os.getpid())
 heuristica = [] 
 
