@@ -157,7 +157,7 @@ for gen in range(NGEN):
         for i in range(len(estadoInicial)):
             estado_inicial[eixos[i]][resultado[i]] = 'rainha'
             
+
         break
 
-
- 
+     

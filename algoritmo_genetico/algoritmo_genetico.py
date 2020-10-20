@@ -80,9 +80,9 @@ def geraDescendente(ascendentes): #c1 and c2 are chromosomes
 #Variable Definition
 #crossover_rate = 1
 inicio = time.time()
-qtdSolucoes = 24
-N = 8
-geracoes = 100
+qtdSolucoes = 120
+N = 128
+geracoes = 100000
 #Variable Definition
 solucoes = geraPoulacao(qtdSolucoes,N)
 fitness = [obterFitness(item) for item in solucoes]
@@ -99,6 +99,7 @@ while j < geracoes:
             break
         else:
             j+=1
+            df = solucoes[0]
         if criterioParada:
             break
     gr = j    
@@ -116,8 +117,8 @@ if df:
     estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
     for j in range(len(eixos)):
         estado_final[j][df[j]] = 'Rainha'
-    print(estado_final)    
- 
+    print(estado_final)
+
 fim = time.time()    
 memoria = (process.memory_info()[0])/1000000 
 print('grerações:',gr,'\n','memoria em mbytes:',memoria,'\n','tempo em segundos :',(fim - inicio) )     
