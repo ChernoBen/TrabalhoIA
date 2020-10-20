@@ -118,6 +118,12 @@ if df:
     for j in range(len(eixos)):
         estado_final[j][df[j]] = 'Rainha'
     print(estado_final)
+else:
+    eixos = [i for i in range(len(df))]
+    estado_final = pd.DataFrame(index=(eixos),columns=(eixos))
+    for j in range(len(eixos)):
+        estado_final[j][df[j]] = 'Rainha'
+    print(estado_final)    
 
 fim = time.time()    
 memoria = (process.memory_info()[0])/1000000 
